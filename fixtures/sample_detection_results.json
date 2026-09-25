@@ -1,0 +1,37 @@
+[
+  {
+    "scenario_id": "timestomped_creation",
+    "file_reference": "1236:1",
+    "full_path": "C:/Users/test/timestomped.exe",
+    "rule_id": "RULE_1_SI_FN_MISMATCH",
+    "triggered": true,
+    "score_contribution": 30,
+    "evidence": {
+      "si_created": "2020-01-01T09:00:00Z",
+      "fn_created": "2026-09-03T14:00:00Z"
+    },
+    "logfile_corroboration": null
+  },
+  {
+    "scenario_id": "zeroed_timestamps",
+    "file_reference": "1237:1",
+    "full_path": "C:/Users/test/zeroed.dll",
+    "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+    "triggered": true,
+    "score_contribution": 20,
+    "evidence": {
+      "raw_100ns_value": 133700000000000000
+    },
+    "logfile_corroboration": null
+  },
+  {
+    "scenario_id": "clean_file",
+    "file_reference": "1234:5",
+    "full_path": "C:/Users/test/clean_file.txt",
+    "rule_id": "RULE_1_SI_FN_MISMATCH",
+    "triggered": false,
+    "score_contribution": 0,
+    "evidence": {},
+    "logfile_corroboration": null
+  }
+]

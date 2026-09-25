@@ -1,0 +1,30 @@
+[
+  {
+    "scenario_id": "timestomped_creation",
+    "file_reference": "1236:1",
+    "full_path": "C:/Users/test/timestomped.exe",
+    "total_score": 30,
+    "risk_level": "MEDIUM",
+    "triggered_rules": [
+      "RULE_1_SI_FN_MISMATCH"
+    ]
+  },
+  {
+    "scenario_id": "zeroed_timestamps",
+    "file_reference": "1237:1",
+    "full_path": "C:/Users/test/zeroed.dll",
+    "total_score": 20,
+    "risk_level": "LOW",
+    "triggered_rules": [
+      "RULE_3_TIMESTAMP_ZEROING"
+    ]
+  },
+  {
+    "scenario_id": "clean_file",
+    "file_reference": "1234:5",
+    "full_path": "C:/Users/test/clean_file.txt",
+    "total_score": 0,
+    "risk_level": "LOW",
+    "triggered_rules": []
+  }
+]

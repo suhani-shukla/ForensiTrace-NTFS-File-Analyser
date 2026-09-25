@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-09-01T10:00:00Z",
+    "source": "MFT",
+    "file_reference": "1234:5",
+    "full_path": "C:/Users/test/clean_file.txt",
+    "event_type": "create",
+    "details": {
+      "note": "clean file created"
+    }
+  },
+  {
+    "timestamp": "2026-09-02T09:05:00Z",
+    "source": "UsnJrnl",
+    "file_reference": "1235:3",
+    "full_path": "C:/Users/test/renamed_file.txt",
+    "event_type": "rename",
+    "details": {
+      "note": "clean rename"
+    }
+  },
+  {
+    "timestamp": "2026-09-03T14:00:00Z",
+    "source": "MFT",
+    "file_reference": "1236:1",
+    "full_path": "C:/Users/test/timestomped.exe",
+    "event_type": "timestamp_change",
+    "details": {
+      "note": "SI timestamps forged to 2020-01-01"
+    }
+  },
+  {
+    "timestamp": "2026-09-04T00:00:00Z",
+    "source": "MFT",
+    "file_reference": "1237:1",
+    "full_path": "C:/Users/test/zeroed.dll",
+    "event_type": "timestamp_change",
+    "details": {
+      "note": "timestamp landed on exact zero boundary"
+    }
+  }
+]

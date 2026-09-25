@@ -1,0 +1,107 @@
+[
+  {
+    "record_id": "rec_001",
+    "source": "MFT",
+    "file_reference": "1234:5",
+    "parent_file_reference": "1000:2",
+    "file_name": "clean_file.txt",
+    "full_path": "C:/Users/test/clean_file.txt",
+    "is_directory": false,
+    "std_info_times": {
+      "created": "2026-09-01T10:00:00Z",
+      "modified": "2026-09-01T10:00:00Z",
+      "mft_modified": "2026-09-01T10:00:00Z",
+      "accessed": "2026-09-01T10:00:00Z"
+    },
+    "file_name_times": {
+      "created": "2026-09-01T10:00:00Z",
+      "modified": "2026-09-01T10:00:00Z",
+      "mft_modified": "2026-09-01T10:00:00Z",
+      "accessed": "2026-09-01T10:00:00Z"
+    },
+    "usn_reason": null,
+    "usn_timestamp": null,
+    "logfile_operation": null,
+    "logfile_timestamp": null,
+    "raw": {
+      "note": "clean fixture record"
+    }
+  },
+  {
+    "record_id": "rec_002",
+    "source": "UsnJrnl",
+    "file_reference": "1235:3",
+    "parent_file_reference": "1000:2",
+    "file_name": "renamed_file.txt",
+    "full_path": "C:/Users/test/renamed_file.txt",
+    "is_directory": false,
+    "std_info_times": {
+      "created": "2026-09-02T09:00:00Z",
+      "modified": "2026-09-02T09:05:00Z",
+      "mft_modified": "2026-09-02T09:05:00Z",
+      "accessed": "2026-09-02T09:05:00Z"
+    },
+    "file_name_times": null,
+    "usn_reason": [
+      "RENAME_NEW_NAME"
+    ],
+    "usn_timestamp": "2026-09-02T09:05:00Z",
+    "logfile_operation": null,
+    "logfile_timestamp": null,
+    "raw": {
+      "note": "clean rename fixture record"
+    }
+  },
+  {
+    "record_id": "rec_003",
+    "source": "MFT",
+    "file_reference": "1236:1",
+    "parent_file_reference": "1000:2",
+    "file_name": "timestomped.exe",
+    "full_path": "C:/Users/test/timestomped.exe",
+    "is_directory": false,
+    "std_info_times": {
+      "created": "2020-01-01T09:00:00Z",
+      "modified": "2020-01-01T09:00:00Z",
+      "mft_modified": "2026-09-03T14:00:00Z",
+      "accessed": "2026-09-03T14:00:00Z"
+    },
+    "file_name_times": {
+      "created": "2026-09-03T14:00:00Z",
+      "modified": "2026-09-03T14:00:00Z",
+      "mft_modified": "2026-09-03T14:00:00Z",
+      "accessed": "2026-09-03T14:00:00Z"
+    },
+    "usn_reason": null,
+    "usn_timestamp": null,
+    "logfile_operation": null,
+    "logfile_timestamp": null,
+    "raw": {
+      "note": "timestomped fixture record - SI/FN mismatch"
+    }
+  },
+  {
+    "record_id": "rec_004",
+    "source": "MFT",
+    "file_reference": "1237:1",
+    "parent_file_reference": "1000:2",
+    "file_name": "zeroed.dll",
+    "full_path": "C:/Users/test/zeroed.dll",
+    "is_directory": false,
+    "std_info_times": {
+      "created": "2026-09-04T00:00:00Z",
+      "modified": "2026-09-04T00:00:00Z",
+      "mft_modified": "2026-09-04T00:00:00Z",
+      "accessed": "2026-09-04T00:00:00Z"
+    },
+    "file_name_times": null,
+    "usn_reason": null,
+    "usn_timestamp": null,
+    "logfile_operation": null,
+    "logfile_timestamp": null,
+    "raw": {
+      "note": "zeroed timestamp fixture record",
+      "raw_100ns_value": 133700000000000000
+    }
+  }
+]
