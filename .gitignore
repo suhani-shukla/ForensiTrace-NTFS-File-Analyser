@@ -7,3 +7,4 @@ venv/
 .pytest_cache/
 *.log
 dataset/scenarios/*.raw
+my/
