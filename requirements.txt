@@ -1,0 +1,7 @@
+﻿https://github.com/msuhanov/dfir_ntfs/archive/1.1.18.tar.gz
+fastapi
+uvicorn[standard]
+jinja2
+pydantic
+pytest
+python-multipart
