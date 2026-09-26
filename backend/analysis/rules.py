@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from datetime import datetime
 from typing import Any
 
 from backend.models.schemas import DetectionResult, ParsedRecord
@@ -11,11 +12,14 @@ from backend.models.schemas import DetectionResult, ParsedRecord
 RULE_1_SI_FN_MISMATCH = "RULE_1_SI_FN_MISMATCH"
 RULE_2_USN_BASIC_INFO_CHANGE = "RULE_2_USN_BASIC_INFO_CHANGE"
 RULE_3_TIMESTAMP_ZEROING = "RULE_3_TIMESTAMP_ZEROING"
+RULE_4_SUSPICIOUS_SEQUENCE = "RULE_4_SUSPICIOUS_SEQUENCE"
 
 RULE_1_SCORE = 30
 RULE_2_SCORE = 25
 RULE_3_SCORE = 20
+RULE_4_SCORE = 0
 _ZEROING_MODULUS = 10_000_000
+_SUSPICIOUS_SEQUENCE = ("create", "modify", "timestamp_change", "rename", "delete")
 
 
 def _result(
@@ -174,13 +178,161 @@ def detect_rule_3(
     return results
 
 
+def _event_type(value: Any) -> str | None:
+    if not isinstance(value, str):
+        return None
+    normalized = value.strip().lower().replace("-", "_").replace(" ", "_")
+    aliases = {
+        "created": "create",
+        "file_create": "create",
+        "modified": "modify",
+        "data_extend": "modify",
+        "data_overwrite": "modify",
+        "timestampchange": "timestamp_change",
+        "timestamp_changed": "timestamp_change",
+        "basic_info_change": "timestamp_change",
+        "renamed": "rename",
+        "rename_new_name": "rename",
+        "rename_old_name": "rename",
+        "file_delete": "delete",
+        "deleted": "delete",
+    }
+    return aliases.get(normalized, normalized if normalized in _SUSPICIOUS_SEQUENCE else None)
+
+
+def _event_timestamp(record: ParsedRecord, event_type: str, raw: dict[str, Any]) -> str:
+    raw_timestamp = raw.get("timestamp") or raw.get("event_timestamp")
+    if isinstance(raw_timestamp, str):
+        return raw_timestamp
+    if record.source == "UsnJrnl" and record.usn_timestamp:
+        return record.usn_timestamp
+    if record.source == "LogFile" and record.logfile_timestamp:
+        return record.logfile_timestamp
+    if event_type == "create":
+        return record.std_info_times.created
+    if event_type == "modify":
+        return record.std_info_times.modified
+    if event_type == "timestamp_change":
+        return record.std_info_times.mft_modified
+    return record.std_info_times.modified
+
+
+def _record_events(record: ParsedRecord) -> list[dict[str, Any]]:
+    raw = record.raw
+    events: list[dict[str, Any]] = []
+    raw_events = raw.get("events")
+    if isinstance(raw_events, list):
+        for item in raw_events:
+            if not isinstance(item, dict):
+                continue
+            event_type = _event_type(item.get("event_type") or item.get("type"))
+            if event_type:
+                events.append(
+                    {
+                        "event_type": event_type,
+                        "timestamp": _event_timestamp(record, event_type, item),
+                        "record_id": record.record_id,
+                    }
+                )
+
+    explicit_type = _event_type(
+        raw.get("event_type") or raw.get("event") or raw.get("operation")
+    )
+    if explicit_type:
+        events.append(
+            {
+                "event_type": explicit_type,
+                "timestamp": _event_timestamp(record, explicit_type, raw),
+                "record_id": record.record_id,
+            }
+        )
+
+    for reason in record.usn_reason or []:
+        event_type = _event_type(reason)
+        if event_type:
+            events.append(
+                {
+                    "event_type": event_type,
+                    "timestamp": _event_timestamp(record, event_type, raw),
+                    "record_id": record.record_id,
+                }
+            )
+
+    logfile_event = _event_type(record.logfile_operation)
+    if logfile_event:
+        events.append(
+            {
+                "event_type": logfile_event,
+                "timestamp": _event_timestamp(record, logfile_event, raw),
+                "record_id": record.record_id,
+            }
+        )
+    return events
+
+
+def _event_sort_key(event: dict[str, Any]) -> tuple[int, Any]:
+    timestamp = event["timestamp"]
+    try:
+        parsed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return (1, timestamp)
+    return (0, parsed)
+
+
+def detect_rule_4(
+    records: Iterable[ParsedRecord], scenario_id: str
+) -> list[DetectionResult]:
+    """Detect create/modify/timestamp-change/rename/delete sequences per file."""
+    records_by_reference: dict[str, list[ParsedRecord]] = {}
+    for record in records:
+        records_by_reference.setdefault(record.file_reference, []).append(record)
+
+    results: list[DetectionResult] = []
+    for file_reference, file_records in records_by_reference.items():
+        events = [
+            event
+            for record in file_records
+            for event in _record_events(record)
+        ]
+        events.sort(key=_event_sort_key)
+
+        matched_events: list[dict[str, Any]] = []
+        next_event = 0
+        for event in events:
+            if event["event_type"] == _SUSPICIOUS_SEQUENCE[next_event]:
+                matched_events.append(event)
+                next_event += 1
+                if next_event == len(_SUSPICIOUS_SEQUENCE):
+                    break
+
+        triggered = len(matched_events) == len(_SUSPICIOUS_SEQUENCE)
+        representative = file_records[0]
+        evidence: dict[str, Any] = {
+            "expected_sequence": list(_SUSPICIOUS_SEQUENCE),
+            "observed_sequence": [event["event_type"] for event in matched_events],
+            "events": matched_events,
+        }
+        results.append(
+            _result(
+                scenario_id,
+                representative,
+                RULE_4_SUSPICIOUS_SEQUENCE,
+                triggered,
+                RULE_4_SCORE,
+                evidence,
+            )
+        )
+    return results
+
+
 def run_rules(
     records: Iterable[ParsedRecord], scenario_id: str
 ) -> list[DetectionResult]:
-    """Run Rules 1–3 and return their results in rule order."""
+    """Run Rules 1–4 and return their results in rule order."""
     record_list = list(records)
     return [
         *detect_rule_1(record_list, scenario_id),
         *detect_rule_2(record_list, scenario_id),
         *detect_rule_3(record_list, scenario_id),
+        *detect_rule_4(record_list, scenario_id),
     ]
