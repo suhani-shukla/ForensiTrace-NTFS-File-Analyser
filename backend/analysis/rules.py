@@ -336,7 +336,10 @@ def detect_rule_5(
     record_list = list(records)
     logfile_by_reference: dict[str, list[ParsedRecord]] = {}
     for record in record_list:
-        if record.source == "LogFile":
+        if record.source == "LogFile" and (
+            bool(record.logfile_operation and record.logfile_operation.strip())
+            or bool(record.logfile_timestamp and record.logfile_timestamp.strip())
+        ):
             logfile_by_reference.setdefault(record.file_reference, []).append(record)
 
     triggered_findings = [
