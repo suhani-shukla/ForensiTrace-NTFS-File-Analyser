@@ -6,18 +6,20 @@ from collections.abc import Iterable
 from datetime import datetime
 from typing import Any
 
-from backend.models.schemas import DetectionResult, ParsedRecord
+from backend.models.schemas import DetectionResult, LogfileCorroboration, ParsedRecord
 
 
 RULE_1_SI_FN_MISMATCH = "RULE_1_SI_FN_MISMATCH"
 RULE_2_USN_BASIC_INFO_CHANGE = "RULE_2_USN_BASIC_INFO_CHANGE"
 RULE_3_TIMESTAMP_ZEROING = "RULE_3_TIMESTAMP_ZEROING"
 RULE_4_SUSPICIOUS_SEQUENCE = "RULE_4_SUSPICIOUS_SEQUENCE"
+RULE_5_LOGFILE_CORROBORATION = "RULE_5_LOGFILE_CORROBORATION"
 
 RULE_1_SCORE = 30
 RULE_2_SCORE = 25
 RULE_3_SCORE = 20
 RULE_4_SCORE = 0
+RULE_5_SCORE = 15
 _ZEROING_MODULUS = 10_000_000
 _SUSPICIOUS_SEQUENCE = ("create", "modify", "timestamp_change", "rename", "delete")
 
@@ -325,14 +327,100 @@ def detect_rule_4(
     return results
 
 
+def detect_rule_5(
+    records: Iterable[ParsedRecord],
+    scenario_id: str,
+    findings: list[DetectionResult],
+) -> list[DetectionResult]:
+    """Corroborate triggered Rules 1-3 with same-file $LogFile evidence."""
+    record_list = list(records)
+    logfile_by_reference: dict[str, list[ParsedRecord]] = {}
+    for record in record_list:
+        if record.source == "LogFile":
+            logfile_by_reference.setdefault(record.file_reference, []).append(record)
+
+    triggered_findings = [
+        finding
+        for finding in findings
+        if finding.triggered
+        and finding.rule_id
+        in {
+            RULE_1_SI_FN_MISMATCH,
+            RULE_2_USN_BASIC_INFO_CHANGE,
+            RULE_3_TIMESTAMP_ZEROING,
+        }
+    ]
+    corroboration_results: list[DetectionResult] = []
+    for file_reference in sorted(
+        {finding.file_reference for finding in triggered_findings}
+    ):
+        logfile_records = logfile_by_reference.get(file_reference, [])
+        if not logfile_records:
+            continue
+
+        matching_findings = [
+            finding
+            for finding in triggered_findings
+            if finding.file_reference == file_reference
+        ]
+        operations = sorted(
+            {
+                record.logfile_operation
+                for record in logfile_records
+                if record.logfile_operation
+            }
+        )
+        timestamps = sorted(
+            {
+                record.logfile_timestamp
+                for record in logfile_records
+                if record.logfile_timestamp
+            }
+        )
+        details = (
+            f"$LogFile record(s) for {file_reference} corroborate "
+            f"{', '.join(finding.rule_id for finding in matching_findings)}."
+        )
+        corroboration = LogfileCorroboration(
+            corroborated=True,
+            details=details,
+        )
+        for finding in matching_findings:
+            finding.logfile_corroboration = corroboration
+
+        representative = logfile_records[0]
+        corroboration_results.append(
+            _result(
+                scenario_id,
+                representative,
+                RULE_5_LOGFILE_CORROBORATION,
+                True,
+                RULE_5_SCORE,
+                {
+                    "corroborated_rule_ids": [
+                        finding.rule_id for finding in matching_findings
+                    ],
+                    "logfile_record_ids": [
+                        record.record_id for record in logfile_records
+                    ],
+                    "logfile_operations": operations,
+                    "logfile_timestamps": timestamps,
+                },
+            )
+        )
+    return corroboration_results
+
+
 def run_rules(
     records: Iterable[ParsedRecord], scenario_id: str
 ) -> list[DetectionResult]:
-    """Run Rules 1–4 and return their results in rule order."""
+    """Run Rules 1–5 and return their results in rule order."""
     record_list = list(records)
-    return [
+    findings = [
         *detect_rule_1(record_list, scenario_id),
         *detect_rule_2(record_list, scenario_id),
         *detect_rule_3(record_list, scenario_id),
         *detect_rule_4(record_list, scenario_id),
     ]
+    findings.extend(detect_rule_5(record_list, scenario_id, findings))
+    return findings
