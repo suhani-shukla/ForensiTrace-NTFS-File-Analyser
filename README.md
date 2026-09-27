@@ -4,7 +4,11 @@ ForensiTrace is a capstone project for analyzing NTFS metadata and reconstructin
 
 ## Current status
 
-_Verified against the repository on 2026-09-27._
+_Verified against commit `0529dcc` on 2026-09-27._
+
+> Docs are owned by Person 5. Each page states the commit it was verified
+> against — if that SHA is behind `main`, treat the page as stale and ask for a
+> refresh rather than trusting it.
 
 The project is **partially implemented**. The analysis core works; the I/O ends of the pipeline do not exist yet.
 

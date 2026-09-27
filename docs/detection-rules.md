@@ -1,6 +1,6 @@
 # Detection Rules
 
-_Verified against `backend/analysis/rules.py`, `scoring.py`, and `timeline.py` on 2026-09-27._
+_Verified against commit `0529dcc` on 2026-09-27._
 
 ## Current implementation state
 

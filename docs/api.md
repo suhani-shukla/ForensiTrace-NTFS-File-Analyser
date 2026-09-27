@@ -1,6 +1,6 @@
 # API Reference
 
-_Verified against the repository on 2026-09-27._
+_Verified against commit `0529dcc` on 2026-09-27._
 
 ## Current implementation state
 

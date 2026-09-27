@@ -1,6 +1,6 @@
 # Setup
 
-_Verified from a clean checkout on 2026-09-27 (Python 3.14.7, Linux)._
+_Verified from a clean checkout at commit `0529dcc` on 2026-09-27 (Python 3.14.7, Linux)._
 
 ## What you can and cannot do after setup
 

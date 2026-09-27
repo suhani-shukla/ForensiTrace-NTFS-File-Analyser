@@ -804,4 +804,5 @@ for s in calculate_risk_scores(findings):
 "
 ```
 
-Verified 2026-09-27 on Python 3.14.7, Linux, `dfir_ntfs` 1.1.18, Pydantic 2.13.5.
+Verified 2026-09-27 against commit `0529dcc`, on Python 3.14.7, Linux,
+`dfir_ntfs` 1.1.18, Pydantic 2.13.5.
