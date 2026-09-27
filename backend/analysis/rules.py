@@ -22,6 +22,15 @@ RULE_4_SCORE = 0
 RULE_5_SCORE = 15
 _ZEROING_MODULUS = 10_000_000
 _SUSPICIOUS_SEQUENCE = ("create", "modify", "timestamp_change", "rename", "delete")
+_REASON_EVENT_TYPES = {
+    "FILE_CREATE": "create",
+    "DATA_EXTEND": "modify",
+    "DATA_OVERWRITE": "modify",
+    "BASIC_INFO_CHANGE": "timestamp_change",
+    "RENAME_NEW_NAME": "rename",
+    "RENAME_OLD_NAME": "rename",
+    "FILE_DELETE": "delete",
+}
 
 
 def _result(
@@ -185,21 +194,23 @@ def _event_type(value: Any) -> str | None:
         return None
     normalized = value.strip().lower().replace("-", "_").replace(" ", "_")
     aliases = {
-        "created": "create",
+        "create": "create",
         "file_create": "create",
+        "created": "create",
+        "modify": "modify",
         "modified": "modify",
         "data_extend": "modify",
         "data_overwrite": "modify",
-        "timestampchange": "timestamp_change",
-        "timestamp_changed": "timestamp_change",
-        "basic_info_change": "timestamp_change",
+        "timestamp_change": "timestamp_change",
+        "update_timestamp": "timestamp_change",
+        "updateresidentvalue": "timestamp_change",
+        "updatenonresidentvalue": "timestamp_change",
+        "rename": "rename",
         "renamed": "rename",
-        "rename_new_name": "rename",
-        "rename_old_name": "rename",
-        "file_delete": "delete",
+        "delete": "delete",
         "deleted": "delete",
     }
-    return aliases.get(normalized, normalized if normalized in _SUSPICIOUS_SEQUENCE else None)
+    return aliases.get(normalized)
 
 
 def _event_timestamp(record: ParsedRecord, event_type: str, raw: dict[str, Any]) -> str:
@@ -250,7 +261,7 @@ def _record_events(record: ParsedRecord) -> list[dict[str, Any]]:
         )
 
     for reason in record.usn_reason or []:
-        event_type = _event_type(reason)
+        event_type = _REASON_EVENT_TYPES.get(reason.upper())
         if event_type:
             events.append(
                 {
