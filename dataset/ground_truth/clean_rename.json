@@ -1,0 +1,5 @@
+{
+  "scenario_id": "clean_rename",
+  "description": "Legitimate rename of a file, no timestamp tampering - negative control",
+  "expected_detections": []
+}

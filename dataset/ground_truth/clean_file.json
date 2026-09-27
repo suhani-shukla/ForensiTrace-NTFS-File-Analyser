@@ -1,0 +1,5 @@
+{
+  "scenario_id": "clean_file",
+  "description": "Untouched file, no tampering - negative control",
+  "expected_detections": []
+}

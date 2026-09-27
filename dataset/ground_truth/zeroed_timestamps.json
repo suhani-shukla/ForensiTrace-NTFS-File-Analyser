@@ -1,0 +1,5 @@
+{
+  "scenario_id": "zeroed_timestamps",
+  "description": "File created with a timestamp deliberately set to an exact 100ns boundary (raw_100ns_value % 10,000,000 == 0), consistent with certain timestomping tools that zero out sub-second precision.",
+  "expected_detections": ["RULE_3_TIMESTAMP_ZEROING"]
+}

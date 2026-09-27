@@ -1,0 +1,5 @@
+{
+  "scenario_id": "timestomped_creation",
+  "description": "File created normally, then $SI timestamps forged to an earlier date using PowerShell (CreationTime, LastWriteTime, LastAccessTime rewritten). $FN timestamps remain accurate, creating a detectable mismatch.",
+  "expected_detections": ["RULE_1_SI_FN_MISMATCH"]
+}

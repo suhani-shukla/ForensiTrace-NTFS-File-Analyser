@@ -1,0 +1,5 @@
+{
+  "scenario_id": "logfile_corroboration_case",
+  "description": "File timestomped (SI/FN mismatch), where $LogFile transaction records corroborate the true modification time, confirming the tampering evidence found via $SI/$FN comparison and/or USN journal.",
+  "expected_detections": ["RULE_1_SI_FN_MISMATCH", "RULE_5_LOGFILE_CORROBORATION"]
+}
