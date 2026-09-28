@@ -1,0 +1,144 @@
+{
+  "clean_baseline": [
+    {
+      "timestamp": "2026-09-09T10:21:03.100000Z",
+      "source": "MFT",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "event_type": "create",
+      "details": {
+        "record_id": "rec-0001",
+        "file_name": "normal.docx",
+        "parent_file_reference": "5:1",
+        "raw": {
+          "note": "negative control: unremarkable lifecycle, no tampering"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-09-09T10:21:03.100000Z",
+      "source": "UsnJrnl",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "event_type": "create",
+      "details": {
+        "record_id": "rec-0002",
+        "file_name": "normal.docx",
+        "parent_file_reference": "5:1",
+        "usn_reason": [
+          "FILE_CREATE"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-09-09T10:33:10.000000Z",
+      "source": "MFT",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "event_type": "timestamp_change",
+      "details": {
+        "record_id": "rec-0003",
+        "file_name": "report_final.docx",
+        "parent_file_reference": "5:1",
+        "std_info_times": {
+          "created": "2026-09-09T10:20:00.300000Z",
+          "modified": "2026-09-09T10:30:00.400000Z",
+          "mft_modified": "2026-09-09T10:33:10.000000Z",
+          "accessed": "2026-09-09T10:33:10.000000Z"
+        },
+        "raw": {
+          "note": "negative control: legitimate rename from report.docx to report_final.docx"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-09-09T10:33:10.000000Z",
+      "source": "UsnJrnl",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "event_type": "rename",
+      "details": {
+        "record_id": "rec-0004",
+        "file_name": "report_final.docx",
+        "parent_file_reference": "5:1",
+        "usn_reason": [
+          "RENAME_NEW_NAME"
+        ]
+      }
+    }
+  ],
+  "timestomp_demo": [
+    {
+      "timestamp": "2026-09-09T10:32:00.700000Z",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "event_type": "create",
+      "details": {
+        "record_id": "rec-1002",
+        "file_name": "malware.exe",
+        "parent_file_reference": "5:1",
+        "usn_reason": [
+          "FILE_CREATE"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-09-09T20:35:00.900000Z",
+      "source": "MFT",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "event_type": "timestamp_change",
+      "details": {
+        "record_id": "rec-1001",
+        "file_name": "svchost_update.exe",
+        "parent_file_reference": "5:1",
+        "std_info_times": {
+          "created": "2026-06-09T08:00:00.000000Z",
+          "modified": "2026-06-09T08:00:00.000000Z",
+          "mft_modified": "2026-09-09T20:35:00.900000Z",
+          "accessed": "2026-06-09T08:00:00.000000Z"
+        },
+        "raw": {
+          "note": "SI timestamps forged to look 3 months old with zeroed sub-second precision; FN timestamps reflect the real creation time"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-09-09T20:35:00.900000Z",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "event_type": "timestamp_change",
+      "details": {
+        "record_id": "rec-1003",
+        "file_name": "malware.exe",
+        "parent_file_reference": "5:1",
+        "usn_reason": [
+          "BASIC_INFO_CHANGE"
+        ],
+        "std_info_times": {
+          "created": "2026-09-09T20:35:00.900000Z",
+          "modified": "2026-09-09T20:35:00.900000Z",
+          "mft_modified": "2026-09-09T20:35:00.900000Z",
+          "accessed": "2026-09-09T20:35:00.900000Z"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-09-09T20:40:00.000000Z",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "event_type": "rename",
+      "details": {
+        "record_id": "rec-1004",
+        "file_name": "svchost_update.exe",
+        "parent_file_reference": "5:1",
+        "usn_reason": [
+          "RENAME_NEW_NAME"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "_note": "STUB fixture, normally owned by Person 1. ParsedRecord has no scenario_id field per the frozen schema, so this file organizes records into a scenario_id -> list[ParsedRecord] map for the API layer to key off of. See README_PERSON4.md for the flagged schema inconsistency this works around.",
+  "clean_baseline": [
+    {
+      "record_id": "rec-0001",
+      "source": "MFT",
+      "file_reference": "64:1",
+      "parent_file_reference": "5:1",
+      "file_name": "normal.docx",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T10:21:03.100000Z",
+        "modified": "2026-09-09T10:22:15.200000Z",
+        "mft_modified": "2026-09-09T10:22:15.200000Z",
+        "accessed": "2026-09-09T10:22:15.200000Z"
+      },
+      "file_name_times": {
+        "created": "2026-09-09T10:21:03.100000Z",
+        "modified": "2026-09-09T10:22:15.200000Z",
+        "mft_modified": "2026-09-09T10:22:15.200000Z",
+        "accessed": "2026-09-09T10:22:15.200000Z"
+      },
+      "usn_reason": null,
+      "usn_timestamp": null,
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {
+        "note": "negative control: unremarkable lifecycle, no tampering"
+      }
+    },
+    {
+      "record_id": "rec-0002",
+      "source": "UsnJrnl",
+      "file_reference": "64:1",
+      "parent_file_reference": "5:1",
+      "file_name": "normal.docx",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T10:21:03.100000Z",
+        "modified": "2026-09-09T10:21:03.100000Z",
+        "mft_modified": "2026-09-09T10:21:03.100000Z",
+        "accessed": "2026-09-09T10:21:03.100000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": [
+        "FILE_CREATE"
+      ],
+      "usn_timestamp": "2026-09-09T10:21:03.100000Z",
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {}
+    },
+    {
+      "record_id": "rec-0003",
+      "source": "MFT",
+      "file_reference": "65:1",
+      "parent_file_reference": "5:1",
+      "file_name": "report_final.docx",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T10:20:00.300000Z",
+        "modified": "2026-09-09T10:30:00.400000Z",
+        "mft_modified": "2026-09-09T10:33:10.000000Z",
+        "accessed": "2026-09-09T10:33:10.000000Z"
+      },
+      "file_name_times": {
+        "created": "2026-09-09T10:20:00.300000Z",
+        "modified": "2026-09-09T10:30:00.400000Z",
+        "mft_modified": "2026-09-09T10:33:10.000000Z",
+        "accessed": "2026-09-09T10:33:10.000000Z"
+      },
+      "usn_reason": null,
+      "usn_timestamp": null,
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {
+        "note": "negative control: legitimate rename from report.docx to report_final.docx"
+      }
+    },
+    {
+      "record_id": "rec-0004",
+      "source": "UsnJrnl",
+      "file_reference": "65:1",
+      "parent_file_reference": "5:1",
+      "file_name": "report_final.docx",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T10:33:10.000000Z",
+        "modified": "2026-09-09T10:33:10.000000Z",
+        "mft_modified": "2026-09-09T10:33:10.000000Z",
+        "accessed": "2026-09-09T10:33:10.000000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": [
+        "RENAME_NEW_NAME"
+      ],
+      "usn_timestamp": "2026-09-09T10:33:10.000000Z",
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {}
+    }
+  ],
+  "timestomp_demo": [
+    {
+      "record_id": "rec-1001",
+      "source": "MFT",
+      "file_reference": "67:1",
+      "parent_file_reference": "5:1",
+      "file_name": "svchost_update.exe",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-06-09T08:00:00.000000Z",
+        "modified": "2026-06-09T08:00:00.000000Z",
+        "mft_modified": "2026-09-09T20:35:00.900000Z",
+        "accessed": "2026-06-09T08:00:00.000000Z"
+      },
+      "file_name_times": {
+        "created": "2026-09-09T10:32:00.700000Z",
+        "modified": "2026-09-09T10:35:00.800000Z",
+        "mft_modified": "2026-09-09T10:35:00.800000Z",
+        "accessed": "2026-09-09T10:35:00.800000Z"
+      },
+      "usn_reason": null,
+      "usn_timestamp": null,
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {
+        "note": "SI timestamps forged to look 3 months old with zeroed sub-second precision; FN timestamps reflect the real creation time"
+      }
+    },
+    {
+      "record_id": "rec-1002",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "parent_file_reference": "5:1",
+      "file_name": "malware.exe",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T10:32:00.700000Z",
+        "modified": "2026-09-09T10:32:00.700000Z",
+        "mft_modified": "2026-09-09T10:32:00.700000Z",
+        "accessed": "2026-09-09T10:32:00.700000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": [
+        "FILE_CREATE"
+      ],
+      "usn_timestamp": "2026-09-09T10:32:00.700000Z",
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {}
+    },
+    {
+      "record_id": "rec-1003",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "parent_file_reference": "5:1",
+      "file_name": "malware.exe",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T20:35:00.900000Z",
+        "modified": "2026-09-09T20:35:00.900000Z",
+        "mft_modified": "2026-09-09T20:35:00.900000Z",
+        "accessed": "2026-09-09T20:35:00.900000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": [
+        "BASIC_INFO_CHANGE"
+      ],
+      "usn_timestamp": "2026-09-09T20:35:00.900000Z",
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {}
+    },
+    {
+      "record_id": "rec-1004",
+      "source": "UsnJrnl",
+      "file_reference": "67:1",
+      "parent_file_reference": "5:1",
+      "file_name": "svchost_update.exe",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T20:40:00.000000Z",
+        "modified": "2026-09-09T20:40:00.000000Z",
+        "mft_modified": "2026-09-09T20:40:00.000000Z",
+        "accessed": "2026-09-09T20:40:00.000000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": [
+        "RENAME_NEW_NAME"
+      ],
+      "usn_timestamp": "2026-09-09T20:40:00.000000Z",
+      "logfile_operation": null,
+      "logfile_timestamp": null,
+      "raw": {}
+    },
+    {
+      "record_id": "rec-1005",
+      "source": "LogFile",
+      "file_reference": "67:1",
+      "parent_file_reference": "5:1",
+      "file_name": "svchost_update.exe",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "is_directory": false,
+      "std_info_times": {
+        "created": "2026-09-09T20:35:00.900000Z",
+        "modified": "2026-09-09T20:35:00.900000Z",
+        "mft_modified": "2026-09-09T20:35:00.900000Z",
+        "accessed": "2026-09-09T20:35:00.900000Z"
+      },
+      "file_name_times": null,
+      "usn_reason": null,
+      "usn_timestamp": null,
+      "logfile_operation": "UpdateResidentValue:$STANDARD_INFORMATION",
+      "logfile_timestamp": "2026-09-09T20:35:00.900000Z",
+      "raw": {
+        "note": "candidate SI-rewrite log record, corroborates Rule 1/3 on this file"
+      }
+    }
+  ]
+}

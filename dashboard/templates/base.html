@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}ForensiTrace{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+<div class="app">
+  <div class="masthead">
+    <a class="wordmark" href="/dashboard">FORENSITRACE<span> · NTFS forensic analyzer</span></a>
+    {% block masthead_right %}{% endblock %}
+  </div>
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>
