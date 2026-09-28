@@ -1,0 +1,290 @@
+{
+  "clean_baseline": [
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "rule_id": "RULE_1_SI_FN_MISMATCH",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "mismatches": {}
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "rule_id": "RULE_1_SI_FN_MISMATCH",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "mismatches": {}
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "64:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\normal.docx",
+      "rule_id": "RULE_4_SUSPICIOUS_SEQUENCE",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "expected_sequence": [
+          "create",
+          "modify",
+          "timestamp_change",
+          "rename",
+          "delete"
+        ],
+        "observed_sequence": [
+          "create"
+        ],
+        "events": [
+          {
+            "event_type": "create",
+            "timestamp": "2026-09-09T10:21:03.100000Z",
+            "record_id": "rec-0002"
+          }
+        ]
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "clean_baseline",
+      "file_reference": "65:1",
+      "full_path": "C:\\Users\\analyst\\Documents\\report_final.docx",
+      "rule_id": "RULE_4_SUSPICIOUS_SEQUENCE",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "expected_sequence": [
+          "create",
+          "modify",
+          "timestamp_change",
+          "rename",
+          "delete"
+        ],
+        "observed_sequence": [],
+        "events": []
+      },
+      "logfile_corroboration": null
+    }
+  ],
+  "timestomp_demo": [
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_1_SI_FN_MISMATCH",
+      "triggered": true,
+      "score_contribution": 30,
+      "evidence": {
+        "mismatches": {
+          "created": {
+            "si": "2026-06-09T08:00:00.000000Z",
+            "fn": "2026-09-09T10:32:00.700000Z"
+          },
+          "modified": {
+            "si": "2026-06-09T08:00:00.000000Z",
+            "fn": "2026-09-09T10:35:00.800000Z"
+          },
+          "mft_modified": {
+            "si": "2026-09-09T20:35:00.900000Z",
+            "fn": "2026-09-09T10:35:00.800000Z"
+          },
+          "accessed": {
+            "si": "2026-06-09T08:00:00.000000Z",
+            "fn": "2026-09-09T10:35:00.800000Z"
+          }
+        }
+      },
+      "logfile_corroboration": {
+        "corroborated": true,
+        "details": "$LogFile record(s) for 67:1 corroborate RULE_1_SI_FN_MISMATCH, RULE_2_USN_BASIC_INFO_CHANGE."
+      }
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "rule_id": "RULE_2_USN_BASIC_INFO_CHANGE",
+      "triggered": true,
+      "score_contribution": 25,
+      "evidence": {
+        "usn_reason": [
+          "BASIC_INFO_CHANGE"
+        ],
+        "mft_record_found": true,
+        "mft_timestamp_changed": true,
+        "mft_record_id": "rec-1001"
+      },
+      "logfile_corroboration": {
+        "corroborated": true,
+        "details": "$LogFile record(s) for 67:1 corroborate RULE_1_SI_FN_MISMATCH, RULE_2_USN_BASIC_INFO_CHANGE."
+      }
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\malware.exe",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_3_TIMESTAMP_ZEROING",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "raw_100ns_values": []
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_4_SUSPICIOUS_SEQUENCE",
+      "triggered": false,
+      "score_contribution": 0,
+      "evidence": {
+        "expected_sequence": [
+          "create",
+          "modify",
+          "timestamp_change",
+          "rename",
+          "delete"
+        ],
+        "observed_sequence": [
+          "create"
+        ],
+        "events": [
+          {
+            "event_type": "create",
+            "timestamp": "2026-09-09T10:32:00.700000Z",
+            "record_id": "rec-1002"
+          }
+        ]
+      },
+      "logfile_corroboration": null
+    },
+    {
+      "scenario_id": "timestomp_demo",
+      "file_reference": "67:1",
+      "full_path": "C:\\Windows\\Temp\\svchost_update.exe",
+      "rule_id": "RULE_5_LOGFILE_CORROBORATION",
+      "triggered": true,
+      "score_contribution": 15,
+      "evidence": {
+        "corroborated_rule_ids": [
+          "RULE_1_SI_FN_MISMATCH",
+          "RULE_2_USN_BASIC_INFO_CHANGE"
+        ],
+        "logfile_record_ids": [
+          "rec-1005"
+        ],
+        "logfile_operations": [
+          "UpdateResidentValue:$STANDARD_INFORMATION"
+        ],
+        "logfile_timestamps": [
+          "2026-09-09T20:35:00.900000Z"
+        ]
+      },
+      "logfile_corroboration": null
+    }
+  ]
+}

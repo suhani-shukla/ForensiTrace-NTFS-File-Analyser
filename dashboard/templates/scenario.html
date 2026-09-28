@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}ForensiTrace — {{ scenario_id }}{% endblock %}
+{% block masthead_right %}
+<div class="case-meta">
+  Scenario <b class="mono">{{ scenario_id }}</b> &nbsp;·&nbsp; {{ record_count }} record(s) parsed
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="tabs">
+  <a href="/dashboard">&larr; All scenarios</a>
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Files, by risk</h2>
+    <div class="report-links">
+      Download report:
+      <a href="/scenarios/{{ scenario_id }}/report?format=html">HTML</a> ·
+      <a href="/scenarios/{{ scenario_id }}/report?format=text">Text</a>
+    </div>
+  </div>
+
+  {% if not scores %}
+    <div class="empty">No files scored in this scenario.</div>
+  {% else %}
+  <table>
+    <tr><th>File</th><th class="num">Score</th><th>Risk</th><th>Triggered rules</th></tr>
+    {% for s in scores %}
+    <tr>
+      <td class="mono">{{ s.full_path }}</td>
+      <td class="num">{{ s.total_score }}</td>
+      <td><span class="badge {{ s.risk_level }}">{{ s.risk_level }}</span></td>
+      <td>{{ s.triggered_rules | join(', ') if s.triggered_rules else '—' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>Detection evidence</h2>
+  {% set any_findings = namespace(value=false) %}
+  {% for s in scores %}
+    {% set findings = findings_by_file.get(s.file_reference, []) %}
+    {% if findings %}
+      {% set any_findings.value = true %}
+      <h3 class="mono">{{ s.full_path }} <span class="badge {{ s.risk_level }}" style="margin-left:8px;">{{ s.risk_level }}</span></h3>
+      {% for f in findings %}
+        <div class="finding">
+          <div class="ft"><span>{{ f.rule_id }}</span><span class="pts">+{{ f.score_contribution }}</span></div>
+          {% if f.evidence %}
+          <div class="fd">
+            {% for k, v in f.evidence.items() %}{{ k }}: {{ v }}{% if not loop.last %} &middot; {% endif %}{% endfor %}
+          </div>
+          {% endif %}
+          {% if f.logfile_corroboration %}
+          <div class="corrob">$LogFile corroboration: {{ f.logfile_corroboration.details }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% if not any_findings.value %}
+    <div class="empty">No triggered findings in this scenario.</div>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>Reconstructed timeline</h2>
+  {% if not timeline %}
+    <div class="empty">No timeline events reconstructed for this scenario.</div>
+  {% else %}
+  <div class="tl">
+    {% for e in timeline %}
+    <div class="tl-item">
+      <div class="tl-time mono">{{ e.timestamp }}</div>
+      <div class="tl-body"><b class="mono">{{ e.full_path }}</b> — {{ e.event_type }}</div>
+      <div class="tl-src mono">{{ e.source }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

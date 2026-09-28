@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}ForensiTrace — Scenarios{% endblock %}
+{% block content %}
+
+<h1 class="page-title">Scenarios</h1>
+
+{% if not scenarios %}
+  <div class="panel"><div class="empty">No scenarios available yet. Check that backend/api/demo_data/ or the real dataset has data.</div></div>
+{% else %}
+  <div class="scenario-grid">
+    {% for s in scenarios %}
+      <a class="scenario-card" href="/dashboard/{{ s.scenario_id }}">
+        <div class="sc-top">
+          <span class="sc-id mono">{{ s.scenario_id }}</span>
+          <span class="badge {{ s.highest_risk }}">{{ s.highest_risk }}</span>
+        </div>
+        <div class="sc-stats">
+          <span>{{ s.file_count }} file{{ 's' if s.file_count != 1 else '' }}</span>
+          <span class="risk-pills">
+            <span class="pill"><span class="dot" style="background:var(--high)"></span>{{ s.risk_counts.HIGH }}</span>
+            <span class="pill"><span class="dot" style="background:var(--med)"></span>{{ s.risk_counts.MEDIUM }}</span>
+            <span class="pill"><span class="dot" style="background:var(--low)"></span>{{ s.risk_counts.LOW }}</span>
+          </span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% endblock %}

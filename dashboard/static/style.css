@@ -1,0 +1,73 @@
+:root{
+  --bg:#12181D; --panel:#1B232B; --border:#2A333C;
+  --text:#E7ECEF; --muted:#8A97A3; --muted-2:#5C6873;
+  --high:#E2574C; --med:#E8A33D; --low:#4FBD8C; --info:#5B9BD5;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  --sans:'IBM Plex Sans', system-ui, sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+a{color:inherit; text-decoration:none;}
+.app{max-width:1100px; margin:0 auto; padding:28px 24px 64px;}
+
+.masthead{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:22px;}
+.wordmark{font-family:var(--mono); font-size:20px; font-weight:600; letter-spacing:0.02em;}
+.wordmark span{color:var(--muted-2); font-weight:400;}
+.case-meta{font-family:var(--mono); font-size:12.5px; color:var(--muted);}
+.case-meta b{color:var(--text); font-weight:500;}
+
+.page-title{font-size:18px; font-weight:600; margin:0 0 18px;}
+
+.tabs{margin-bottom:18px; font-size:13px; color:var(--muted);}
+.tabs a:hover{color:var(--text);}
+
+.scenario-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:14px;}
+.scenario-card{display:block; background:var(--panel); border:1px solid var(--border); padding:16px 18px;
+  transition:border-color .15s;}
+.scenario-card:hover{border-color:var(--info);}
+.sc-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.sc-id{font-size:14px; font-weight:600;}
+.sc-stats{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:var(--muted);}
+
+.risk-pills{display:flex; gap:10px; font-family:var(--mono); font-size:11.5px;}
+.pill{display:flex; align-items:center; gap:5px;}
+.dot{width:7px; height:7px; border-radius:50%; display:inline-block;}
+
+.panel{background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin-bottom:18px;}
+.panel-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px; margin-bottom:14px;}
+.panel h2{font-size:15px; margin:0; font-weight:600;}
+.panel h3{font-size:13px; margin:18px 0 8px; font-weight:600;}
+.report-links{font-size:12.5px; color:var(--muted);}
+.report-links a{color:var(--info); text-decoration:underline;}
+
+table{width:100%; border-collapse:collapse; font-size:13.5px;}
+th{text-align:left; font-weight:500; color:var(--muted); font-size:12px; padding:8px 10px; border-bottom:1px solid var(--border);}
+td{padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.mono{font-family:var(--mono); font-size:12.5px;}
+.num{text-align:right; font-family:var(--mono);}
+
+.badge{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px;
+  padding:3px 8px; border:1px solid var(--border);}
+.badge.HIGH{color:var(--high); border-color:rgba(226,87,76,.4);}
+.badge.MEDIUM{color:var(--med); border-color:rgba(232,163,61,.4);}
+.badge.LOW{color:var(--low); border-color:rgba(79,189,140,.35);}
+
+.finding{padding:10px 0; border-top:1px solid var(--border);}
+.finding:first-child{border-top:none;}
+.finding .ft{font-size:13.5px; font-weight:600; margin-bottom:3px; display:flex; justify-content:space-between; gap:10px;}
+.finding .fd{font-size:12.8px; color:var(--muted); line-height:1.55;}
+.finding .corrob{font-size:12px; color:var(--muted-2); margin-top:4px;}
+.pts{font-family:var(--mono); font-size:12px; color:var(--muted-2); white-space:nowrap;}
+
+.tl{position:relative; padding-left:22px;}
+.tl::before{content:''; position:absolute; left:5px; top:4px; bottom:4px; width:1px; background:var(--border);}
+.tl-item{position:relative; padding:0 0 16px 14px;}
+.tl-item::before{content:''; position:absolute; left:-19px; top:4px; width:9px; height:9px; border-radius:50%;
+  background:var(--panel); border:2px solid var(--muted-2);}
+.tl-item .tl-time{font-size:11.5px; color:var(--muted);}
+.tl-item .tl-body{font-size:13.5px; margin-top:2px;}
+.tl-item .tl-src{font-size:11px; color:var(--muted-2);}
+
+.empty{color:var(--muted); font-size:13.5px; padding:8px 0;}
